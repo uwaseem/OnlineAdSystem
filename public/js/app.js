@@ -17,7 +17,78 @@ angular.module('onlineAdsApp', ['ui.router'])
 
     function getAllUsers() {
       console.log('I\'m getting all Users')
-      return ['Apple', 'Ford', 'Nike', 'Unilever', 'Others']
+      return [{
+        name: 'apple',
+        discountPromo: {
+          standout: {
+            minimumOrder: 0,
+            newPrice: 299.99
+          }
+        }
+      }, {
+        name: 'ford',
+        discountPromo: {
+          standout: {
+            minimumOrder: 0,
+            newPrice: 309.99
+          },
+          premium: {
+            minimumOrder: 3,
+            newPrice: 389.99
+          }
+        },
+        freePromo: {
+          classic: {
+            minimumOrder: 4,
+            freeQuantity: 1
+          }
+        }
+      }, {
+        name: 'nike',
+        discountPromo: {
+          premium: {
+            minimumOrder: 4,
+            newPrice: 379.99
+          }
+        }
+      }, {
+        name: 'unilever',
+        freePromo: {
+          classic: {
+            minimumOrder: 2,
+            freeQuantity: 1
+          }
+        }
+      }, {
+        name: 'other',
+        discountPromo: {
+          classic: {
+            minimumOrder: 0,
+            newPrice: 0
+          },
+          standout: {
+            minimumOrder: 0,
+            newPrice: 0
+          },
+          premium: {
+            minimumOrder: 0,
+            newPrice: 0
+          }
+        },
+        freePromo: {
+          classic: {
+            minimumOrder: 0,
+            freeQuantity: 0
+          },
+          standout: {
+            minimumOrder: 0,
+            freeQuantity: 0
+          },
+          premium: {
+            minimumOrder: 0,
+            freeQuantity: 0
+          }}
+      }]
     }
 
     function getAllProducts() {
@@ -26,7 +97,9 @@ angular.module('onlineAdsApp', ['ui.router'])
         sku: 'classic',
         name: 'Classic Ad',
         price : 269.99,
-        description: 'Basic level of advertisement'
+        description: 'Basic level of advertisement',
+        discountPromo: {
+        }
       }, {
         sku: 'standout',
         name: 'Standout Ad',
