@@ -11,10 +11,8 @@ angular.module('onlineAdsApp', ['ui.router'])
   .controller('MainController', function($scope, $http, $state) {
     $scope.users = getAllUsers()
     $scope.products = getAllProducts()
-    $scope.quantity
-    $scope.totalClassicPrice
-    $scope.totalStandoutPrice
-    $scope.totalPremiumPrice
+    $scope.orders = {}
+    $scope.price = {}
     $scope.totalPrice
 
     function getAllUsers() {
@@ -28,33 +26,39 @@ angular.module('onlineAdsApp', ['ui.router'])
         sku: 'classic',
         name: 'Classic Ad',
         price : 269.99,
-        description: 'Basic level of advertisement',
-        calcFunction: 'classicCalculate()'
+        description: 'Basic level of advertisement'
       }, {
         sku: 'standout',
         name: 'Standout Ad',
         price: 322.99,
-        description: 'Able to use company logo and longer presentation texts',
-        calcFunction: 'standoutCalculate()'
+        description: 'Able to use company logo and longer presentation texts'
       }, {
         sku: 'premium',
         name: 'Premium Ad',
         price: 394.99,
-        description: 'Higher visibility plus benefits as Standout Ad',
-        calcFunction: 'premiumCalculate()'
+        description: 'Higher visibility plus benefits as Standout Ad'
       }]
     }
 
-    $scope.classicCalculate = () => {
-      console.log($scope)
-      console.log('I\'m calling the calculate function from classic', $scope.quantity)
+    $scope.calculate = function(product) {
+      console.log('LOOK !! I\'m calculating something for', product, $scope.orders[product])
+      // Get element id
+      let id
+      for (let i in $scope.products) {
+        if($scope.products[i].sku === product) {
+          id = i
+        }
+      }
+
+      // Get basic price
+      let price = $scope.products[id].price
+
+      $scope.price[product] = price * $scope.orders[product]
+
+      // Any discounts
+      // Any free
+      console.log($scope.price)
     }
 
-    $scope.standoutCalculate = () => {
-      console.log('I\'m calling the calculate function from standout')
-    }
 
-    $scope.premiumCalculate = () => {
-      console.log('I\'m calling the calculate function from premium')
-    }
   })

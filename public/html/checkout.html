@@ -30,7 +30,9 @@
         </li>
       </div>
 
-      <input class='orders' ng-change='{{ product.calcFunction }}' ng-model='quantity[product]' ngValue='product' ng-repeat='product in products' for='{{ product }}' name='order' type='number'>
+      <input type="number" ng-change=calculate('classic') ng-model='orders.classic' ng-min=0 value=0>
+      <input type="number" ng-change=calculate('standout') ng-model='orders.standout' ng-min=0 value=0>
+      <input type="number" ng-change=calculate('premium') ng-model='orders.premium' ng-min=0 value=0>
 
       <div>
         <h4>TOTAL:</h4>
