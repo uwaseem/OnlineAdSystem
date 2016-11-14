@@ -7,6 +7,11 @@
     float: left;
   }
 
+  .orders {
+    margin-top: 10px;
+    margin-right: 190px;
+  }
+
   #userSelector {
     margin-bottom: 10px;
   }
@@ -24,6 +29,13 @@
           <ul>{{ product.description }}</ul>
         </li>
       </div>
+
+      <input class='orders' ng-change='{{ product.calcFunction }}' ng-model='quantity[product]' ngValue='product' ng-repeat='product in products' for='{{ product }}' name='order' type='number'>
+
+      <div>
+        <h4>TOTAL:</h4>
+      </div>
+
     </main>
   </div>
 </body>
