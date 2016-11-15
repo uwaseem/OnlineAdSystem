@@ -10,8 +10,8 @@ angular.module('onlineAdsApp', ['ui.router'])
   })
   .controller('MainController', function($scope, $http, $state) {
     $scope.users = getAllUsers()
-    $scope.usersInfo = getAllUsersInfo()
     $scope.products = getAllProducts()
+    $scope.userInfo
     $scope.orders = {}
     $scope.price = {}
     $scope.totalPrice
@@ -21,80 +21,15 @@ angular.module('onlineAdsApp', ['ui.router'])
       return ['apple', 'ford', 'nike', 'unilever', 'others']
     }
 
-    function getAllUsersInfo() {
-      console.log('I\'m getting all Users Info')
-      return [{
-        name: 'apple',
-        discountPromo: {
-          standout: {
-            minimumOrder: 0,
-            newPrice: 299.99
-          }
-        }
-      }, {
-        name: 'ford',
-        discountPromo: {
-          standout: {
-            minimumOrder: 0,
-            newPrice: 309.99
-          },
-          premium: {
-            minimumOrder: 3,
-            newPrice: 389.99
-          }
-        },
-        freePromo: {
-          classic: {
-            minimumOrder: 4,
-            freeQuantity: 1
-          }
-        }
-      }, {
-        name: 'nike',
-        discountPromo: {
-          premium: {
-            minimumOrder: 4,
-            newPrice: 379.99
-          }
-        }
-      }, {
-        name: 'unilever',
-        freePromo: {
-          classic: {
-            minimumOrder: 2,
-            freeQuantity: 1
-          }
-        }
-      }, {
-        name: 'other',
-        discountPromo: {
-          classic: {
-            minimumOrder: 0,
-            newPrice: 0
-          },
-          standout: {
-            minimumOrder: 0,
-            newPrice: 0
-          },
-          premium: {
-            minimumOrder: 0,
-            newPrice: 0
-          }
-        },
-        freePromo: {
-          classic: {
-            minimumOrder: 0,
-            freeQuantity: 0
-          },
-          standout: {
-            minimumOrder: 0,
-            freeQuantity: 0
-          },
-          premium: {
-            minimumOrder: 0,
-            freeQuantity: 0
-          }}
-      }]
+    $scope.getUserInfo = () => {
+      $http.get('http://localhost:3000/userInfo/' + $scope.selectedUser.toLowerCase())
+        .error((err) => {
+          console.log('why is it failing here - ', err)
+        })
+        .success((data) => {
+          console.log('this is the data received', data)
+          $scope.userInfo = data.userInfo
+        })
     }
 
     function getAllProducts() {
@@ -122,16 +57,7 @@ angular.module('onlineAdsApp', ['ui.router'])
     $scope.calculate = function(product) {
       console.log('LOOK !! I\'m calculating something for', product, $scope.orders[product])
       // Get element id
-      let userId
       let productId
-
-      for (let i in $scope.usersInfo) {
-        if($scope.usersInfo[i].name === $scope.selectedUser) {
-          userId = i
-          break
-        }
-        userId = 4
-      }
 
       for (let i in $scope.products) {
         if($scope.products[i].sku === product) {
@@ -144,8 +70,8 @@ angular.module('onlineAdsApp', ['ui.router'])
 
       // Get discounted price
       // If we meet minimum, set discount
-      if ($scope.usersInfo[userId] && $scope.usersInfo[userId].discountPromo[product] && $scope.orders[product] >= $scope.usersInfo[userId].discountPromo[product].minimumOrder) {
-        price = $scope.usersInfo[userId].discountPromo[product].newPrice
+      if ($scope.userInfo && $scope.userInfo.discountPromo[product] && $scope.orders[product] >= $scope.userInfo.discountPromo[product].minimumOrder) {
+        price = $scope.userInfo.discountPromo[product].newPrice
       }
 
       $scope.price[product] = price * $scope.orders[product]
