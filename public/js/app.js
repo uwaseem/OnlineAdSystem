@@ -55,7 +55,6 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.calculate = function(product) {
-      console.log('LOOK !! I\'m calculating something for', product, $scope.orders[product])
       // Get element id
       let productId
 
@@ -76,8 +75,19 @@ angular.module('onlineAdsApp', ['ui.router'])
 
       $scope.price[product] = price * $scope.orders[product]
 
-      // Any free
+      // TEMP shit
+      let freeAds = determineFreeAds(product)
+      console.log('are we getting any free ads', freeAds)
 
       console.log($scope.price)
+    }
+
+    function determineFreeAds(product) {
+      // Do we get free stuff
+      if ($scope.userInfo && $scope.userInfo.freePromo[product]) {
+
+        // We need to do the logic here. But what, hmmm ...
+        return Math.floor($scope.orders[product]/$scope.userInfo.freePromo[product].minimumOrder)
+      }
     }
   })
