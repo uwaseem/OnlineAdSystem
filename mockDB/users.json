@@ -1,0 +1,44 @@
+{
+  "apple": {
+    "discountPromo": {
+      "standout": {
+        "minimumOrder": 0,
+        "newPrice": 299.99
+      }
+    }
+  },
+  "ford": {
+    "discountPromo": {
+      "standout": {
+        "minimumOrder": 0,
+        "newPrice": 309.99
+      },
+      "premium": {
+        "minimumOrder": 3,
+        "newPrice": 389.99
+      }
+    },
+    "freePromo": {
+      "classic": {
+        "minimumOrder": 4,
+        "freeQuantity": 1
+      }
+    }
+  },
+  "nike": {
+    "discountPromo": {
+      "premium": {
+        "minimumOrder": 4,
+        "newPrice": 379.99
+      }
+    }
+  },
+  "unilever": {
+    "freePromo": {
+      "classic": {
+        "minimumOrder": 2,
+        "freeQuantity": 1
+      }
+    }
+  }
+}
