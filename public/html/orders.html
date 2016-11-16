@@ -21,9 +21,8 @@
 
 <body>
   <select id="userSelector" class="form-control" ng-init="selectedUser = users[0]" ng-change="getUserInfo()" ng-model="selectedUser" ng-options="user for user in users"></select>
-  <button href="#orders" type="button" class="btn btn-primary">ENTER</button>
 
-  <div>
+  <div ng-show=userInfo>
     <h1>HELLO {{ selectedUser.toUpperCase()}} MY OLD FRIEND</h1>
     <main>
       <div class='borders' ng-repeat='product in products'>
