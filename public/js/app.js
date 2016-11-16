@@ -40,6 +40,7 @@ angular.module('onlineAdsApp', ['ui.router'])
         .success((data) => {
           console.log('this is the data received', data)
           $scope.userInfo = data.userInfo
+          $scope.calculate($scope.selectedUser)
         })
     }
 
