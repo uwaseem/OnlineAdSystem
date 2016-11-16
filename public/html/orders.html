@@ -11,16 +11,11 @@
     margin-top: 10px;
     margin-right: 180px;
   }
-
-  #userSelector {
-    margin-bottom: 10px;
-  }
 </style>
 
 <body ng-app='onlineAdsApp'>
   <div>
     <h1>HELLO {{ selectedUser.toUpperCase()}} MY OLD FRIEND</h1>
-    <select id='userSelector' ng-init='selectedUser = users[4]' ng-change='getUserInfo()' ng-model='selectedUser' ng-options='user for user in users'></select>
     <main>
       <div class='borders' ng-repeat='product in products'>
         <li>

@@ -1,12 +1,17 @@
 angular.module('onlineAdsApp', ['ui.router'])
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state('users', {
+        url: '/users',
+        templateUrl: 'html/users.html',
+        controller: 'MainController'
+      })
       .state('orders', {
         url: '/orders',
         templateUrl: 'html/orders.html',
         controller: 'MainController'
       });
-    $urlRouterProvider.otherwise('orders')
+    $urlRouterProvider.otherwise('users')
   })
   .controller('MainController', function($scope, $http, $state) {
     $scope.users = getAllUsers()
@@ -18,7 +23,7 @@ angular.module('onlineAdsApp', ['ui.router'])
 
     function getAllUsers() {
       console.log('I\'m getting all Users')
-      return ['apple', 'ford', 'nike', 'unilever', 'others']
+      return ['Please choose your username', 'apple', 'ford', 'nike', 'unilever', 'others']
     }
 
     $scope.getUserInfo = () => {
