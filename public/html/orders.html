@@ -11,9 +11,18 @@
     margin-top: 10px;
     margin-right: 180px;
   }
+
+  #userSelector {
+    margin-bottom: 10px;
+    width: 10%;
+    min-width: 100px;
+  }
 </style>
 
-<body ng-app='onlineAdsApp'>
+<body>
+  <select id="userSelector" class="form-control" ng-init="selectedUser = users[0]" ng-change="getUserInfo()" ng-model="selectedUser" ng-options="user for user in users"></select>
+  <button href="#orders" type="button" class="btn btn-primary">ENTER</button>
+
   <div>
     <h1>HELLO {{ selectedUser.toUpperCase()}} MY OLD FRIEND</h1>
     <main>

@@ -11,7 +11,7 @@ angular.module('onlineAdsApp', ['ui.router'])
         templateUrl: 'html/orders.html',
         controller: 'MainController'
       });
-    $urlRouterProvider.otherwise('users')
+    $urlRouterProvider.otherwise('orders')
   })
   .controller('MainController', function($scope, $http, $state) {
     $scope.users = getAllUsers()
