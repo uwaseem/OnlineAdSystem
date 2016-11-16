@@ -27,6 +27,12 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.getUserInfo = () => {
+      // TEMP HACK
+      if ($scope.selectedUser === 'Please choose your username') {
+        $scope.userInfo = null
+        return
+      }
+
       $http.get('http://localhost:3000/userInfo/' + $scope.selectedUser.toLowerCase())
         .error((err) => {
           console.log('why is it failing here - ', err)
