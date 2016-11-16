@@ -1,6 +1,11 @@
 angular.module('onlineAdsApp', ['ui.router'])
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state('users', {
+        url: '/users',
+        templateUrl: 'html/users.html',
+        controller: 'MainController'
+      })
       .state('orders', {
         url: '/orders',
         templateUrl: 'html/orders.html',
@@ -18,10 +23,16 @@ angular.module('onlineAdsApp', ['ui.router'])
 
     function getAllUsers() {
       console.log('I\'m getting all Users')
-      return ['apple', 'ford', 'nike', 'unilever', 'others']
+      return ['Please choose your username', 'apple', 'ford', 'nike', 'unilever', 'others']
     }
 
     $scope.getUserInfo = () => {
+      // TEMP HACK
+      if ($scope.selectedUser === 'Please choose your username') {
+        $scope.userInfo = null
+        return
+      }
+
       $http.get('http://localhost:3000/userInfo/' + $scope.selectedUser.toLowerCase())
         .error((err) => {
           console.log('why is it failing here - ', err)
@@ -29,6 +40,7 @@ angular.module('onlineAdsApp', ['ui.router'])
         .success((data) => {
           console.log('this is the data received', data)
           $scope.userInfo = data.userInfo
+          $scope.calculate($scope.selectedUser)
         })
     }
 
