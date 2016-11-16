@@ -1,12 +1,12 @@
 angular.module('onlineAdsApp', ['ui.router'])
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('checkout', {
-        url: '/checkout',
-        templateUrl: 'html/checkout.html',
+      .state('orders', {
+        url: '/orders',
+        templateUrl: 'html/orders.html',
         controller: 'MainController'
       });
-    $urlRouterProvider.otherwise('checkout')
+    $urlRouterProvider.otherwise('orders')
   })
   .controller('MainController', function($scope, $http, $state) {
     $scope.users = getAllUsers()
@@ -65,29 +65,27 @@ angular.module('onlineAdsApp', ['ui.router'])
       }
 
       // Get basic price
-      let price = $scope.products[productId].price
+      let pricePerAd = $scope.products[productId].price
 
       // Get discounted price
       // If we meet minimum, set discount
-      if ($scope.userInfo && $scope.userInfo.discountPromo[product] && $scope.orders[product] >= $scope.userInfo.discountPromo[product].minimumOrder) {
-        price = $scope.userInfo.discountPromo[product].newPrice
+      if ($scope.userInfo && $scope.userInfo.discountPromo && $scope.userInfo.discountPromo[product] && $scope.orders[product] >= $scope.userInfo.discountPromo[product].minimumOrder) {
+        pricePerAd = $scope.userInfo.discountPromo[product].newPrice
       }
 
-      $scope.price[product] = price * $scope.orders[product]
-
-      // TEMP shit
-      let freeAds = determineFreeAds(product)
-      console.log('are we getting any free ads', freeAds)
+      $scope.price[product] = (pricePerAd * $scope.orders[product]).toFixed(2)
 
       console.log($scope.price)
     }
 
-    function determineFreeAds(product) {
+    $scope.determineFreeAds = (product) => {
       // Do we get free stuff
-      if ($scope.userInfo && $scope.userInfo.freePromo[product]) {
+      if ($scope.userInfo && $scope.userInfo.freePromo && $scope.userInfo.freePromo[product]) {
 
         // We need to do the logic here. But what, hmmm ...
         return Math.floor($scope.orders[product]/$scope.userInfo.freePromo[product].minimumOrder)
       }
+
+      return 0
     }
   })
