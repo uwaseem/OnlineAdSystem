@@ -101,6 +101,9 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.checkout = () => {
+      // reset the total price everytime we checkout
+      $scope.totalPrice = 0
+
       const products = Object.keys($scope.orders)
 
       if (products.length === 0) {
