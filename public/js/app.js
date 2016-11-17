@@ -14,18 +14,28 @@ angular.module('onlineAdsApp', ['ui.router'])
     $urlRouterProvider.otherwise('orders')
   })
   .controller('MainController', function($scope, $http, $state) {
-    $scope.users = getAllUsers()
     $scope.products = getAllProducts()
-    $scope.userInfo
+    $scope.users = ['Choose username']
     $scope.orders = {}
     $scope.totalOrders = {}
     $scope.totalPrice = 0
 
     const url = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
+    getAllUsers()
+
     function getAllUsers() {
-      console.log('I\'m getting all Users')
-      return ['Choose username', 'apple', 'ford', 'nike', 'unilever', 'others']
+      $http.get(url + 'users')
+        .error((err) => {
+          console.log('why is it failing here - ', err)
+          const retry = confirm('We can\'t seem to get users. Do you wish to retry?')
+          if (retry) {
+            location.reload(true)
+          }
+        })
+        .success((data) => {
+          $scope.users = $scope.users.concat(data)
+        })
     }
 
     function getAllProducts() {
@@ -51,12 +61,6 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.getUserInfo = () => {
-      // TEMP HACK UNTIL WE CAN FIGURE OUT DISABLE
-      if ($scope.selectedUser === 'Please choose your username') {
-        $scope.userInfo = null
-        return
-      }
-
       $http.get(url + 'userInfo/' + $scope.selectedUser.toLowerCase())
         .error((err) => {
           console.log('why is it failing here - ', err)
