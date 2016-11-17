@@ -48,12 +48,31 @@
         <h4 ng-show="orders.premium.price" && >TOTAL: ${{ orders.premium.price }} + {{ determineFreeAds('premium') }} free ads</h4>
       </div>
 
-      <button type="button" id="checkout" class="btn btn-success" ng-click="checkout()">CHECKOUT</button>
+      <button type="button" id="checkout" class="btn btn-primary" ng-click="checkout()" data-toggle="modal" data-target="#myModal">CHECKOUT</button>
 
-      <h6>{{ totalOrders.classic }}</h6>
-      <h6>{{ totalOrders.standout }}</h6>
-      <h6>{{ totalOrders.premium }}</h6>
-      <h6>{{ totalPrice }}</h6>
+      <!-- CHECKOUT MODAL BOX -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Final Order</h4>
+            </div>
+            <div class="modal-body">
+              <h4>Classic: {{ totalOrders.classic }}</h4>
+              <h4>Standout: {{ totalOrders.standout }}</h4>
+              <h4>Premium: {{ totalOrders.premium }}</h4>
+              <h4>Total: ${{ totalPrice }}</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     </main>
   </div>
