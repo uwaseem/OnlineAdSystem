@@ -39,7 +39,6 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     function getAllProducts() {
-      console.log('I\'m getting all products')
       return [{
         sku: 'classic',
         name: 'Classic Ad',
@@ -71,7 +70,6 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.calculate = function(product) {
-      // Get element id
       let productId
 
       for (let i in $scope.products) {
@@ -95,8 +93,7 @@ angular.module('onlineAdsApp', ['ui.router'])
     $scope.determineFreeAds = (product) => {
       // Do we get free stuff
       if ($scope.userInfo && $scope.userInfo.freePromo && $scope.userInfo.freePromo[product] && $scope.orders[product]) {
-
-        // We need to do the logic here. But what, hmmm ...
+        // Calculate the extra free ads
         return Math.floor($scope.orders[product].quantity/$scope.userInfo.freePromo[product].minimumOrder)
       }
 
@@ -115,8 +112,5 @@ angular.module('onlineAdsApp', ['ui.router'])
         $scope.totalPrice += $scope.orders[products[i]].price
         $scope.totalOrders[products[i]] = $scope.orders[products[i]].quantity + $scope.determineFreeAds(products[i])
       }
-
-      console.log($scope.totalPrice)
-      console.log($scope.totalOrders)
     }
   })
