@@ -18,7 +18,8 @@ angular.module('onlineAdsApp', ['ui.router'])
     $scope.products = getAllProducts()
     $scope.userInfo
     $scope.orders = {}
-    $scope.totalPrice
+    $scope.totalOrders = {}
+    $scope.totalPrice = 0
 
     function getAllUsers() {
       console.log('I\'m getting all Users')
@@ -83,9 +84,7 @@ angular.module('onlineAdsApp', ['ui.router'])
         pricePerAd = $scope.userInfo.discountPromo[product].newPrice
       }
 
-      $scope.orders[product].price = (pricePerAd * $scope.orders[product].quantity).toFixed(2)
-
-      console.log($scope.orders)
+      $scope.orders[product].price = (pricePerAd * $scope.orders[product].quantity)
     }
 
     $scope.determineFreeAds = (product) => {
@@ -100,12 +99,19 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.checkout = () => {
-      console.log('this is ordes', $scope.orders)
-      let products = Object.keys($scope.price)
+      let products = Object.keys($scope.orders)
 
-      for(let i in products) {
-
+      if (products.length === 0) {
+        alert('Please make an order before checking out')
+        return
       }
 
+      for (let i in products) {
+        $scope.totalPrice += $scope.orders[products[i]].price
+        $scope.totalOrders[products[i]] = $scope.orders[products[i]].quantity + $scope.determineFreeAds(products[i])
+      }
+
+      console.log($scope.totalPrice)
+      console.log($scope.totalOrders)
     }
   })
