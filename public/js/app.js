@@ -14,16 +14,28 @@ angular.module('onlineAdsApp', ['ui.router'])
     $urlRouterProvider.otherwise('orders')
   })
   .controller('MainController', function($scope, $http, $state) {
-    $scope.users = getAllUsers()
+    const url = window.location.protocol + "//" + window.location.host + window.location.pathname
+
     $scope.products = getAllProducts()
-    $scope.userInfo
+    $scope.users = ['Choose username']
     $scope.orders = {}
     $scope.totalOrders = {}
     $scope.totalPrice = 0
 
+    getAllUsers()
+
     function getAllUsers() {
-      console.log('I\'m getting all Users')
-      return ['Choose username', 'apple', 'ford', 'nike', 'unilever', 'others']
+      $http.get(url + 'users')
+        .error((err) => {
+          console.log('why is it failing here - ', err)
+          const retry = confirm('We can\'t seem to get users. Do you wish to retry?')
+          if (retry) {
+            location.reload(true)
+          }
+        })
+        .success((data) => {
+          $scope.users = $scope.users.concat(data)
+        })
     }
 
     function getAllProducts() {
@@ -49,18 +61,11 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.getUserInfo = () => {
-      // TEMP HACK UNTIL WE CAN FIGURE OUT DISABLE
-      if ($scope.selectedUser === 'Please choose your username') {
-        $scope.userInfo = null
-        return
-      }
-
-      $http.get('http://localhost:3000/userInfo/' + $scope.selectedUser.toLowerCase())
+      $http.get(url + 'userInfo/' + $scope.selectedUser.toLowerCase())
         .error((err) => {
           console.log('why is it failing here - ', err)
         })
         .success((data) => {
-          console.log('this is the data received', data)
           $scope.userInfo = data.userInfo
         })
     }
@@ -99,7 +104,7 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.checkout = () => {
-      let products = Object.keys($scope.orders)
+      const products = Object.keys($scope.orders)
 
       if (products.length === 0) {
         alert('Please make an order before checking out')
