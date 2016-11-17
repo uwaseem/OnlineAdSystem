@@ -39,7 +39,6 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     function getAllProducts() {
-      console.log('I\'m getting all products')
       return [{
         sku: 'classic',
         name: 'Classic Ad',
