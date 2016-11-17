@@ -17,15 +17,20 @@
     width: 10%;
     min-width: 100px;
   }
+
+  #checkout {
+    margin-top: 10px;
+  }
+
 </style>
 
 <body>
   <select id="userSelector" class="form-control" ng-init="selectedUser = users[0]" ng-change="getUserInfo()" ng-model="selectedUser" ng-options="user for user in users"></select>
 
-  <div ng-show='userInfo'>
+  <div ng-show="userInfo">
     <h1>HELLO {{ selectedUser.toUpperCase()}} MY OLD FRIEND</h1>
     <main>
-      <div class='borders' ng-repeat='product in products'>
+      <div class="borders" ng-repeat="product in products">
         <li>
           <ul>{{ product.name }}</ul>
           <ul>{{ product.price }}</ul>
@@ -33,17 +38,41 @@
         </li>
       </div>
 
-      <input class='orders' type="number" ng-change=calculate('classic') ng-model='orders.classic' ng-min=0 value=0>
-      <input class='orders' type="number" ng-change=calculate('standout') ng-model='orders.standout' ng-min=0 value=0>
-      <input class='orders' type="number" ng-change=calculate('premium') ng-model='orders.premium' ng-min=0 value=0>
+      <input class="orders" type="number" ng-change=calculate('classic') ng-model="orders.classic.quantity" ng-min=0 value=0>
+      <input class="orders" type="number" ng-change=calculate('standout') ng-model="orders.standout.quantity" ng-min=0 value=0>
+      <input class="orders" type="number" ng-change=calculate('premium') ng-model="orders.premium.quantity" ng-min=0 value=0>
 
       <div>
-        <h4 ng-show='price.classic' >TOTAL: ${{ price.classic }} + {{ determineFreeAds('classic') }} free ads</h4>
-        <h4 ng-show=price.standout && >TOTAL: ${{ price.standout }} + {{ determineFreeAds('standout') }} free ads</h4>
-        <h4 ng-show=price.premium && >TOTAL: ${{ price.premium }} + {{ determineFreeAds('premium') }} free ads</h4>
+        <h4 ng-show="orders.classic.price" >TOTAL: ${{ orders.classic.price }} + {{ determineFreeAds('classic') }} free ads</h4>
+        <h4 ng-show="orders.standout.price" && >TOTAL: ${{ orders.standout.price }} + {{ determineFreeAds('standout') }} free ads</h4>
+        <h4 ng-show="orders.premium.price" && >TOTAL: ${{ orders.premium.price }} + {{ determineFreeAds('premium') }} free ads</h4>
       </div>
 
-      <button type="button" class="btn btn-success">CHECKOUT</button>
+      <button type="button" id="checkout" class="btn btn-primary" ng-click="checkout()" data-toggle="modal" data-target="#myModal">CHECKOUT</button>
+
+      <!-- CHECKOUT MODAL BOX -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Final Order</h4>
+            </div>
+            <div class="modal-body">
+              <h4>Classic: {{ totalOrders.classic }}</h4>
+              <h4>Standout: {{ totalOrders.standout }}</h4>
+              <h4>Premium: {{ totalOrders.premium }}</h4>
+              <h4>Total: ${{ totalPrice }}</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     </main>
   </div>
