@@ -23,13 +23,11 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res) => {
   const users = Object.keys(userInfo)
-  console.log(users)
 
   res.status(200).send(users)
 })
 
 app.get('/userInfo/:user', (req, res) => {
-  console.log('calling here', req.params.user)
   const user = req.params.user
 
   res.status(200).json({
