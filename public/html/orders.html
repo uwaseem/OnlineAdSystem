@@ -13,7 +13,7 @@
   }
 
   #userSelector {
-    margin-bottom: 10px;
+    margin: 10px 40%;
     width: 10%;
     min-width: 100px;
   }
@@ -25,7 +25,7 @@
 </style>
 
 <body>
-  <select id="userSelector" class="form-control" ng-init="selectedUser = users[0]" ng-change="getUserInfo()" ng-model="selectedUser" ng-options="user for user in users"></select>
+  <select id="userSelector" class="form-control" ng-init="selectedUser = users[0]" ng-change="getUserInfo()" ng-model="selectedUser" ng-options="user as user disable when user === 'Please choose your username' for user in users"></select>
 
   <div ng-show="userInfo">
     <h1>HELLO {{ selectedUser.toUpperCase()}} MY OLD FRIEND</h1>
