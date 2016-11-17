@@ -1,8 +1,6 @@
 <style>
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px;
+  .productDesc {
+    margin: 20px 0px 0px 20px;
   }
 
   .borders {
@@ -20,7 +18,7 @@
   }
 
   .ordersLabel {
-    margin: 0px 10px 10px 20px;
+    margin: 50px 10px 10px 20px;
   }
 
   .productTotal {
@@ -47,15 +45,13 @@
 <body>
   <select id="userSelector" class="form-control" ng-init="selectedUser = users[0]" ng-change="getUserInfo()" ng-model="selectedUser" ng-options="user as user disable when user === 'Choose username' for user in users"></select>
 
-  <div id='main'> <!-- ng-show="userInfo"> -->
+  <div id='main' ng-show="userInfo">
     <h1>Welcome {{ selectedUser.toUpperCase()}} !!</h1>
     <div>
       <div class="borders" ng-repeat="product in products">
-        <li>
-          <ul>{{ product.name }}</ul>
-          <ul>${{ product.price }}</ul>
-          <ul>{{ product.description }}</ul>
-        </li>
+        <h3 class='productDesc'> {{ product.name }}</h3>
+        <h5 class='productDesc'> {{ product.price }}</h5>
+        <h5 class='productDesc'> {{ product.description }}</h5>
 
         <div class="input-group">
           <label class="ordersLabel">Orders: </label>
