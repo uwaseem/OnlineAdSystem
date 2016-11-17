@@ -21,6 +21,8 @@ angular.module('onlineAdsApp', ['ui.router'])
     $scope.totalOrders = {}
     $scope.totalPrice = 0
 
+    const url = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
     function getAllUsers() {
       console.log('I\'m getting all Users')
       return ['Choose username', 'apple', 'ford', 'nike', 'unilever', 'others']
@@ -55,12 +57,11 @@ angular.module('onlineAdsApp', ['ui.router'])
         return
       }
 
-      $http.get('http://localhost:3000/userInfo/' + $scope.selectedUser.toLowerCase())
+      $http.get(url + 'userInfo/' + $scope.selectedUser.toLowerCase())
         .error((err) => {
           console.log('why is it failing here - ', err)
         })
         .success((data) => {
-          console.log('this is the data received', data)
           $scope.userInfo = data.userInfo
         })
     }
@@ -99,7 +100,7 @@ angular.module('onlineAdsApp', ['ui.router'])
     }
 
     $scope.checkout = () => {
-      let products = Object.keys($scope.orders)
+      const products = Object.keys($scope.orders)
 
       if (products.length === 0) {
         alert('Please make an order before checking out')
