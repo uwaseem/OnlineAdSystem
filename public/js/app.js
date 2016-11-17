@@ -14,13 +14,13 @@ angular.module('onlineAdsApp', ['ui.router'])
     $urlRouterProvider.otherwise('orders')
   })
   .controller('MainController', function($scope, $http, $state) {
+    const url = window.location.protocol + "//" + window.location.host + window.location.pathname
+
     $scope.products = getAllProducts()
     $scope.users = ['Choose username']
     $scope.orders = {}
     $scope.totalOrders = {}
     $scope.totalPrice = 0
-
-    const url = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
     getAllUsers()
 
