@@ -5,11 +5,16 @@
     border: 3px gray solid;
     margin-right: 10px;
     float: left;
+    display: inline-block;
   }
 
   .orders {
     margin: 0px 180px 10px 20px;
     max-width: 100px;
+  }
+
+  .ordersLabel {
+    margin: 0px 180px 10px 20px;
   }
 
   #userSelector {
@@ -42,9 +47,10 @@
         </li>
 
         <div class="form-group">
-          <label for=product.sku>Orders: </label>
-          <input class="orders" type="number" ng-change=calculate(product.sku) ng-model="orders[product.sku].quantity" ng-min=0 value=0 name=product.sku>
+          <label class="ordersLabel">Orders: </label>
+          <input class="orders" type="number" ng-change=calculate(product.sku) ng-model="orders[product.sku].quantity" ng-min=0 value=0>
         </div>
+        <br>
       </div>
 
       <div>
