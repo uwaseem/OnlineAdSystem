@@ -23,7 +23,7 @@ angular.module('onlineAdsApp', ['ui.router'])
 
     function getAllUsers() {
       console.log('I\'m getting all Users')
-      return ['Please choose your username', 'apple', 'ford', 'nike', 'unilever', 'others']
+      return ['Choose username', 'apple', 'ford', 'nike', 'unilever', 'others']
     }
 
     function getAllProducts() {
