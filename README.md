@@ -8,4 +8,4 @@ To keep this simple, information which is supposed to be retrieved a DB is store
 1. git clone
 2. npm install
 3. npm start
-4. go to browser -> `localhost:3000`
+4. go to browser -> localhost:3000
