@@ -50,7 +50,7 @@ angular.module('onlineAdsApp', ['ui.router'])
         sku: 'standout',
         name: 'Standout Ad',
         price: 322.99,
-        description: 'Able to use company logo and longer presentation texts'
+        description: 'Able to use company logo'
       }, {
         sku: 'premium',
         name: 'Premium Ad',
@@ -107,7 +107,6 @@ angular.module('onlineAdsApp', ['ui.router'])
       const products = Object.keys($scope.orders)
 
       if (products.length === 0) {
-        alert('Please make an order before checking out')
         return
       }
 
