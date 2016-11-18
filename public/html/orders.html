@@ -1,4 +1,8 @@
 <style>
+  body {
+    background-color: cornflowerblue
+  }
+
   .productDesc {
     margin: 20px 0px 0px 20px;
   }
@@ -52,7 +56,7 @@
     <div>
       <div class="borders" ng-repeat="product in products">
         <h3 class='productDesc'> {{ product.name }}</h3>
-        <h5 class='productDesc'> {{ product.price }}</h5>
+        <h5 class='productDesc'> ${{ product.price }}</h5>
         <h5 class='productDesc'> {{ product.description }}</h5>
 
         <div class="input-group">
@@ -67,7 +71,7 @@
     <button type="button" id="checkout" class="btn btn-primary" ng-click="checkout()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> CHECKOUT</button>
 
     <!-- CHECKOUT MODAL BOX -->
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="myModal" role="dialog" ng-show="orders != {}">
       <div class="modal-dialog">
 
         <!-- Modal content-->
