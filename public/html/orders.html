@@ -7,7 +7,8 @@
     width: 30%;
     height: auto;
     overflow: auto;
-    border: 3px blue solid;
+    border: 3px deepskyblue solid;
+    border-radius: 25px;
     margin-right: 10px;
     float: left;
     display: inline-block;
@@ -39,9 +40,8 @@
 
   #checkout {
     margin-top: 10px;
-    position: absolute;
+    position: relative;
   }
-
 </style>
 
 <body>
@@ -62,9 +62,9 @@
 
         <h4 class="productTotal" ng-show="orders[product.sku].price">Total: ${{ orders[product.sku].price }} + {{ determineFreeAds(product.sku) }} free ads</h4>
       </div>
-
-      <button type="button" id="checkout" class="btn btn-primary" ng-click="checkout()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> CHECKOUT</button>
     </div>
+
+    <button type="button" id="checkout" class="btn btn-primary" ng-click="checkout()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> CHECKOUT</button>
 
     <!-- CHECKOUT MODAL BOX -->
     <div class="modal fade" id="myModal" role="dialog">
